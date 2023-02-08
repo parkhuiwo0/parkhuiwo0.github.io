@@ -1,6 +1,6 @@
 ---
 layout: content
-title: About
+title: 나에 대해
 permalink: /about/
 ---
 개발자 박희우의 기술 위키입니다.
