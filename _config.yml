@@ -8,7 +8,7 @@ email: parkhuiwo0@gmail.com
 twitter_username: 
 github_username: parkhuiwo0
 
-baseurl: # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://parkhuiwo0.github.io" # the base hostname & protocol for your site
 
 google_analytics_id: 
