@@ -2,7 +2,7 @@
 layout: post
 title: "희우 위키 첫 포스팅 - 기술 블로그를 시작하면서"
 description: "기술 블로그를 시작하면서"
-date: 2023-02-09
+date: 2023-02-01
 tags: sample post, intro
 comments: true
 ---
