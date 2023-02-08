@@ -3,20 +3,14 @@ layout: content
 title: About
 permalink: /about/
 ---
-Hi, I'm Johnny and I live in the Shire. Thanks for visiting my site.
+개발자 박희우의 기술 위키입니다.
 
-I program and write about software development when I have the time. More information can be found through <a href="https://www.linkedin.com/" data-network="LinkedIn" data-proofer-ignore>LinkedIn.</a>
+주로 Java와 Spring Framework를 이용하여 개발하며 오픈소스 생태계에 관심이 많습니다.
 
-----
-
-## The Website
-This site was made on an [Apple MBP](https://www.apple.com/) powered by [Jekyll](https://jekyllrb.com) on [Github Pages](https://pages.github.com).
-I'd love to hear your feedback on this site and my work.
+많은 관심과 응원 부탁드려요.
 
 ----
 
-## Etcetera
-
-- [Instagram](https://www.instagram.com/) for 📸
-- [Facebook](https://www.facebook.com/) for 🕺
+- [Linkedin](https://www.linkedin.com/in/parkhuiwo0/)
+- [Instagram](https://www.instagram.com/parkhuiwo0/)
 
