@@ -8,7 +8,7 @@ email: johnny@appleseed.com
 twitter_username: _HairForceOne
 github_username: parkhuiwo0
 
-baseurl: "/paper-jekyll-theme" # the subpath of your site, e.g. /blog
+baseurl: # the subpath of your site, e.g. /blog
 url: "https://parkhuiwo0.github.io" # the base hostname & protocol for your site
 
 google_analytics_id: UA-1111111111-1
