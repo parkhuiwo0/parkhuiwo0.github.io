@@ -1,17 +1,17 @@
 # Site settings
-title: "Paper Jekyll Theme"
-description: > 
-  Write a description of your website here.
+title: "희우 위키"
+description: > 개발자 박희우의 기술 블로그
+  
 
-author: Johnny Appleseed
-email: johnny@appleseed.com
-twitter_username: _HairForceOne
+author: 박희우
+email: parkhuiwo0@gmail.com
+twitter_username: 
 github_username: parkhuiwo0
 
 baseurl: # the subpath of your site, e.g. /blog
 url: "https://parkhuiwo0.github.io" # the base hostname & protocol for your site
 
-google_analytics_id: UA-1111111111-1
+google_analytics_id: 
 disqus_id:
 
 # Build settings
