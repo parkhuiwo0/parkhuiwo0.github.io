@@ -26,6 +26,7 @@ Linux Kernal의 System Call 중 하나이다.
 - Read-Ahead with Page Unit (페이지 단위 리드 어헤드)
     - 메모리 수준의 페이지(Page) 단위로 데이터를 미리 읽는다.
 
+<br>
 
 ## RAID 컨트롤러 캐시의 리드 어헤드(Read Ahead)
 
@@ -37,6 +38,7 @@ RAID의 컨트롤러 캐시의 정책 중 읽기 정책에서도 리드 어헤�
 
 미리 읽어온 데이터를 I/O 비용이 저렴한 캐시레이어에 올려두고, 접근하도록 하는 기술인 것이다.
 
+<br>
 
 ## DB 시스템 내의 리드 어헤드(Read Ahead) - InnoDB Buffer Pool Prefetching
 
@@ -57,11 +59,15 @@ DB도 결국 파일을 관리하는 스토리지이기 때문에 내가 사용�
 
 ![스크린샷 2023-06-13 오후 5 01 19](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/a94fb672-a3f6-4c06-aaf9-f35144e7f44f)
 
+<br>
+
 ## 정리하며
 
 Read-Ahead에 대한 용어를 얼떨결에 들었는데, 생각보다 탐색과 관련된 부분에서 중요하게 작용되는 용어인 것 같아 기억을 하기 위해 정리해보았다.
 
 또한, 내가 사용하고 있는 DB(InnoDB)에서도 비슷한 역할을 해주고 있었기에 조금 더 흥미롭게 보았다.
+
+<br>
 
 ## 참고 문서
 - [RAID and filesystems](https://raid.wiki.kernel.org/index.php/RAID_and_filesystems)
