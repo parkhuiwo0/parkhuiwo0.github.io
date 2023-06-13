@@ -2,7 +2,7 @@
 layout: post
 title: "리드 어헤드 (Read Ahead)"
 description: "파일 시스템 그리고 탐색에서 중요하게 작용하는 리드 어헤드(Read Ahead) 용어에 대한 정리"
-date: 2023-06-11
+date: 2023-05-11
 tags: DB
 comments: true
 ---
