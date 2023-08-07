@@ -3,6 +3,9 @@ layout: content
 title: 나에 대해
 permalink: /about/
 ---
+
+> 중요하지 않은 무언가를 위해 중요한 무언가를 건다는 것은 말도 안 되는 짓이다.
+
 개발자 박희우의 기술 위키입니다.
 
 주로 Java와 Spring Framework를 이용하여 개발하며 오픈소스 생태계에 관심이 많습니다.
