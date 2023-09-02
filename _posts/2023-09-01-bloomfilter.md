@@ -52,7 +52,7 @@ elementA와 elementB는 해싱 알고리즘들에 의해 대응되는 비트가 
 - m길이의 크기 구조에 자료구조에 원소를 n개 추가하였을 때, 특정 비트가 0일 확률은 다음과 같이 계산할 수 있다.
 <img width="134" alt="스크린샷 2023-09-02 오후 8 00 18" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/a409bf1b-f50a-40d4-9a3b-34b901c65e9d">
 
-- 원소를 검사할 때 *******k*******개의 해시값이 모두 1이 될 확률 (존재할 확률)은 다음과 같이 계산할 수 있다.
+- 원소를 검사할 때 *k*개의 해시값이 모두 1이 될 확률 (존재할 확률)은 다음과 같이 계산할 수 있다.
 
 <img width="206" alt="스크린샷 2023-09-02 오후 8 00 21" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/335bf77a-e115-4359-a870-9cb85dbc9b47">
 
