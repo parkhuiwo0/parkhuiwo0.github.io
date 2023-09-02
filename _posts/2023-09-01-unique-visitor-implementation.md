@@ -46,7 +46,8 @@ comments: true
 > *전체 유저에 대해 1번부터 N번까지 줄세운다. 1번부터 N번까지 0과 1을 가지는 2진 비트 배열(bit array)를 사용하여 방문/미방문을 표시한다.*
 
 
-![스크린샷 2023-09-03 오전 3 49 27](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/18b577c2-ce59-4d2a-b5d1-d82ad526a564)
+![스크린샷 2023-09-03 오전 3 34 42](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/e28f9da0-aa8f-4aeb-9b10-75d130f228ff)
+
 
 
 레디스에는 String 형태의 값을 저장할 수 있는데, 이 String은 일반적인 문자열이 아니라 바이트 시퀀스(Byte Sequnce)를 저장한다. ([참고문서](https://redis.io/docs/data-types/strings/))
