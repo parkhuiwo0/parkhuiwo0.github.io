@@ -72,7 +72,7 @@ elementA와 elementB는 해싱 알고리즘들에 의해 대응되는 비트가 
 구글의 세이프 브라우징 서비스는 특정 리소스 웹 페이지에 대해 블룸필터 자료구조를 통해 1차 필터링을 통해 필터링 대상 페이지인지 확인 후에, 필터링 대상 페이지가 맞다면, 방대한 자료구조에 접근하여 진짜 필터링을 해야하는지 검사하는 원리로 동작하게 된다.
 
 # 참고 문서
-
+- [Network Applications of Bloom Filters: A Survey](https://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf)
 - [구글 크롬 GIT 블룸필터](https://chromium.googlesource.com/chromium/chromium/+/refs/heads/main/chrome/browser/safe_browsing/bloom_filter.cc)
 - [위키피디아 블룸필터](https://ko.wikipedia.org/wiki/%EB%B8%94%EB%A3%B8_%ED%95%84%ED%84%B0)
 
