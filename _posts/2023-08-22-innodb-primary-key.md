@@ -29,8 +29,8 @@ MySQL InnoDB 스토리지 엔진에는 모든 테이블에 레코드(행)를 고
 비슷한 고민을 하거나 좋은 아이디어 혹은 영감이 떠오를 때마다 지속적으로 이 포스팅에 업데이트 하도록 할 것이다.
 
 아래에 적힌 의사결정 근거들은 단순 내가 대리키를 기본키로 택한 이유를 나열하는 것이 아니라 대리키를 기본키로 택하는 과정에 있어서 고민했던 내용들 그리고 알아낸 정보들을 나열한 것이다.
-
-
+<br>
+<br>
 ## *:의사결정 근거#1 - IEEE 논문 HighPerformance SQL*
 
 아래는 *[High Performance SQL - Finesse for Lucrative Programming](https://www.academia.edu/12998233/High_Performance_SQL_IEEE_)* 논문으로부터 발췌한 글이다.
@@ -41,9 +41,11 @@ MySQL InnoDB 스토리지 엔진에는 모든 테이블에 레코드(행)를 고
 
 만들려는 테이블의 특성상 테이블의 속성 전체 혹은 일부가 다른 테이블에서도 식별자로 쓰여진다면 (어떠한 관계를 표현하거나, 유일성이 필요없는 키로 사용된다면) 다른 테이블의 레코드 사이즈도 증가하고, 조인에 대한 부담감도 커지는 것은 사실이다.
 
+<br>
 
 ## *:의사결정 근거#2 - 클러스터 된 인덱스 (Clustered Index of InnoDB Primary Key)*
 
+<br>
 
 ## *:의사결정 근거#3 - InnoDB Index Data Structure Size*
 
@@ -56,11 +58,11 @@ InnoDB의 Secondary Index는 스토리지의 물리적인 주소를 가지고 �
 
 만약 Primary Key 자체의 사이즈가 증가된다면, Primary Key를 가지고 있는 **모든 세컨더리 인덱스의 사이즈 또한 증가하게 된다**는 단점이 존재한다.
 
-
+<br>
 
 ## *:의사결정 근거#4 - Storage Optimizing (데이터 탐색 패턴)*
 
-
+<br>
 
 ## *:의사결정 근거#5 - Locking M**echanism***
 
@@ -80,10 +82,9 @@ A,B를 기준으로 탐색된 인덱스 레코드 전체에 잠금이 걸리게 
 
 (이 사실은 정확하지 않으며, 상상에 의해 작성된 내용임을 한 번 더 강조한다.)
 
-
+<br>
 
 # 참고 문서
-
-- [도서] Real MySQL 8.0 vol1
-- [논문] [IEEE HIgh Performance SQL](https://www.academia.edu/12998233/High_Performance_SQL_IEEE_)
--
+- Real MySQL 8.0 vol1
+- [IEEE HIgh Performance SQL](https://www.academia.edu/12998233/High_Performance_SQL_IEEE_)
+- 
