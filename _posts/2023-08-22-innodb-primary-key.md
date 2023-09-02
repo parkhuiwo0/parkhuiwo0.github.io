@@ -47,7 +47,7 @@ MySQL InnoDB 스토리지 엔진에는 모든 테이블에 레코드(행)를 고
 
 <br>
 
-## *:의사결정 근거#3 - InnoDB Index Data Structure Size*
+## *:의사결정 근거#3 - InnoDB Index Data Structure*
 
 InnoDB의 Secondary Index는 스토리지의 물리적인 주소를 가지고 있지 않고, 데이터 주소를 가지고 있는 Primary Key의 주소를 가르키고 있다.
 
@@ -57,6 +57,8 @@ InnoDB의 Secondary Index는 스토리지의 물리적인 주소를 가지고 �
 
 
 만약 Primary Key 자체의 사이즈가 증가된다면, Primary Key를 가지고 있는 **모든 세컨더리 인덱스의 사이즈 또한 증가하게 된다**는 단점이 존재한다.
+
+또한, 그림에서 볼 수 있듯이 세컨더리 인덱스로 탐색하게 되는 경우에는 PK를 한 번 더 통해서 디스크 수준에 접근할 수 있기에 조회 성능이 저하될 수 있다.
 
 <br>
 
