@@ -1,3 +1,12 @@
+---
+layout: post
+title: "Implement Counting of Unique Vistor"
+description: "공간 효율성을 극대화 한 유니크 유저 방문자 수 카운팅"
+date: 2023-09-01
+tags: IMPLEMENTATION
+comments: true
+---
+
 # 개요
 
 이 포스팅은 최근 블룸 필터 포스팅에서 비트 마스킹을 다루며 이전 직장에서 조회수 기능을 구현하기 위해 고민했던 내용들이 떠올라서 누군가에게 아이디어를 제공하고 보완해나가기 위하여 작성한 글이다.
