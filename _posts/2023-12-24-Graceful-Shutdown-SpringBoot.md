@@ -77,6 +77,10 @@ server:
 
 Spring Boot 2.3 미만의 버전을 사용하고 있다면, Spring Framework의 [ContextClosedEvent 클래스](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/event/ContextClosedEvent.html) 를 이용하여 애플리케이션 콘텍스트가 종료될 때 WAS 스레드 자원회수를 신경써주면 된다.
 
+shutdown 옵션을 `graceful로` 설정할 경우 다음과 같이 요청을 처리 중에 셧다운 이벤트가 들어오더라도, 해당 요청을 모두 처리하고 WAS 스레드가 반납될 때까지 대기하는 것을 볼 수 있다.
+
+<img width="1606" alt="스크린샷 2024-02-04 오후 7 17 55" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/85182600-149f-44fe-aa89-b8d561d92ab0">
+
 만약, 셧다운이 처리되고 있는 서버 애플리케이션에 새로운 요청이 들어오면 어떻게 될까?
 
 최초로 요청을 보내고, 해당 요청이 처리되기 전 shutdown signal을 통해 애플리케이션이 종료 절차를 밟도록 했다.
