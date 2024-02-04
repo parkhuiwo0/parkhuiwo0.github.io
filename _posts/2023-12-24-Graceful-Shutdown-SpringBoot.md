@@ -7,4 +7,160 @@ tags: SpringFramework
 comments: true
 ---
 
-작성중인 포스팅입니다.
+# 그레이스풀 셧다운 (Graceful Shutdown)
+
+## 우아한 종료, Graceful Shutdown
+
+우리는 애플리케이션을 구동하기 위해서 자원(스레드를 생성하거나, HTTP 통신을 위한 커넥션 풀을 만들거나, DB I/O를 위한 커넥션 풀을 만들거나 등)을 사용한다. 
+
+사용할 자원을 적절히 할당하는 것도 중요하지만, 그만큼 중요한 것은 사용된 자원을 회수하는 것이다.
+
+Graceful Shutdown은 말 그대로 우아한 종료를 의미한다.
+
+우아한 종료란, 애플리케이션이 종료될 때 별도의 사이드 이펙트를 발생하지 않는 것을 의미한다. (대부분의 사이드 이펙트는 진행중인 프로세스가 중단됨에 따라 작업이 정상적으로 처리되지 않거나, 하드웨어 리소스가 반환되지 않거나 등이 원인일 것이다.)
+
+그러면 어떻게 애플리케이션을 우아하게 종료할 수 있을까?
+
+시스템의 전원을 강제적으로 차단하지 않는 이상, 우리는 애플리케이션이 종료된다는 신호를 전달 받을 수 있다.
+
+일반적으로, 리눅스 환경에서 서비스를 많이 하기 때문에, 다음 [리눅스 Termination Signal 문서](https://man7.org/linux/man-pages/man7/signal.7.html)를 참고하면 대표적으로 애플리케이션을 종료할 때 사용하는 두 가지 터미네이션 신호는 다음과 같다.
+
+- SIGTERM
+- SIGINT
+
+Java에서는 다음 Runtime 클래스([Java 11 Runtime Document](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Runtime.html#addShutdownHook(java.lang.Thread)))에서 종료 시그널을 전달 받고 처리하는 ShutdownHook을 등록할 수  있다.
+
+<img width="1631" alt="스크린샷 2024-02-04 오후 5 54 10" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/55aca50d-9648-44c8-ac9a-6efb64ad8957">
+
+
+일반적인 자바 애플리케이션은 우리는 생성한 리소스들을 이렇게 셧다운 훅을 통해 정리할 수 있다.
+
+## 배포 전략에 따른 자원 회수
+
+요즘 대다수의 애플리케이션은 Blue/Green Deployment 혹은 Canary Deployment 전략을 채택하고 있기 때문에, 신규 버전의 애플리케이션으로 트래픽을 전환하고, 이전 버전의 애플리케이션은 종료되지 않고 최소한 몇 분은 기다리고 있다.
+
+따라서 이전 버전이 즉시 종료되지 않기 때문에 자원회수에 신경을 쓰지 않아도 몇 분 이내(애플리케이션이 종료가 되기 전에)에 자원이 자동적으로 회수 되어 문제 상황이 없었을 수도 있다.
+
+하지만 이는 명백히 소프트웨어의 결함이고, 언제든지 시스템의 신뢰성을 깨트릴 수 있는 요인 중 하나이다.
+
+### AWS Spot Instance (AWS 스팟 인스턴스)
+
+스팟 인스턴스에 대한 자세한 내용은 [AWS 공식 문서 링크](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/using-spot-instances.html)를 참고하면 된다.
+
+AWS만 한정해서 이야기 하는 것이지만, 스팟 인스턴스를 사용하는 애플리케이션은 관리자(개발자 등)의 의지와는 상관없이 언제든지 리소스가 종료될 수 있기 때문에 Graceful Shutdown은 더더욱 신경써야 한다.
+
+현재 내가 근무하고 있는 조직에서는 스팟 인스턴스를 매우 잘 활용하고 있기(비용절감의 목적으로) 때문에 Graceful Shutdown에 꽤 많은 신경을 쓰고 있다.
+
+## Graceful Shutdown in Spring Application
+
+나는 스프링을 사용하여 개발하고 있기 때문에, 스프링 애플리케이션을 가지고 Graceful Shutdown을 어떻게 구성할 수 있는지 몇 가지 예시를 작성하겠다.
+
+### 1. 톰캣 스레드 풀 자원 회수 (HTTP Tomcat Thread Pool)
+
+만약 웹 서버에 클라이언트가 요청을 보내고, 해당 요청이 처리되기 전에 (HTTP Response가 전달되기 전에) 서비스가 중단되면 어떻게 될까?
+
+다음 간단히 정리한 그림과 같이 당연히 응답은 정상적으로 나가지 않게되고, 클라이언트는 응답이 올 것이라는 정상적인 상황에 대한 신뢰도가 깨지게 된다.
+
+<img width="791" alt="스크린샷 2024-02-04 오후 5 43 25" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/ed7db8dd-9759-4dbc-b703-35de09800e5c">
+
+
+시스템의 신뢰성을 지키기 위해서는 요청을 처리중인 톰캣 스레드가 존재한다면 해당 요청이 모두 완벽히 처리될 때까지 애플리케이션은 종료되면 안 된다.
+
+어떻게 처리중인 스레드가 존재할 때 애플리케이션을 중단시키지 않고, 요청을 처리하도록 유지할 수 있을까?
+
+만약 Spring Boot 2.3이상의 버전을 사용하고 있다면, 다음과 같이 설정에 추가해주면 된다.
+
+```yaml
+server:
+  shutdown: graceful
+```
+
+Spring Boot 2.3 미만의 버전을 사용하고 있다면, Spring Framework의 [ContextClosedEvent 클래스](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/event/ContextClosedEvent.html) 를 이용하여 애플리케이션 콘텍스트가 종료될 때 WAS 스레드 자원회수를 신경써주면 된다.
+
+만약, 셧다운이 처리되고 있는 서버 애플리케이션에 새로운 요청이 들어오면 어떻게 될까?
+
+최초로 요청을 보내고, 해당 요청이 처리되기 전 shutdown signal을 통해 애플리케이션이 종료 절차를 밟도록 했다.
+
+그리고, 새로운 요청을 여러 번 보낸 결과 아래의 사진과 같이 TCP 패킷의 RST Flag를 통해 요청을 거부하는 것을 볼 수 있다.
+
+<img width="1547" alt="스크린샷 2024-02-04 오후 6 23 54" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/97b57d64-0a8d-4b2d-9e76-92d36d854b5e">
+
+
+Graceful Shutdown을 사용하면서 한 가지 더 살펴봐야 하는 옵션이 있는데, 다음 셧다운 Phase의 타임아웃을 설정하는 옵션이다.
+
+다음 옵션은 애플리케이션이 종료 시그널을 받고 일정 시간 동안 자원이 회수가 되지 않으면 강제로 종료하겠다는 옵션을 제공한다.
+
+```yaml
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s # default : 30s
+```
+
+만약, 특정한 요청사항이 매우 길다면 (어떤 fan-out 현상 등에 의해) 해당 작업이 완료되기 까지 기다려야 할 수 있다.
+
+여기서 주의사항은 해당 옵션은 무조건 30초를 기다린다는 것이 아니다.
+
+만약, WAS 스레드의 모든 자원이 회수되었다면 30초가 지나지 않았더라도, 애플리케이션을 즉시 종료한다는 점을 꼭 기억해야 한다.
+
+그러면, WAS 스레드 외에 또 어떤 상황이 있을까?
+
+### 2. 스레드 자원 회수 (Thread Resource R**eclamation)**
+
+톰캣 스레드가 아닌, 시스템에서 자체적으로 생성한 스레드 풀 (즉 톰캣 애플리케이션이 감지할 수 없는 영역의 리소스 중 하나)에 제출된 작업도 완료될 때까지 신경을 써야할 필요가 있다.
+
+만약, Java 코드를 통해 Thread Pool을 자체적으로 생산했고 웹 요청에 의해 해당 스레드 풀에 작업이 제출되었다고 가정해보자.
+
+<img width="988" alt="스크린샷 2024-02-04 오후 6 33 31" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/7e187086-b5c2-4731-877e-1b6e79a79712">
+
+마침 또, 우리가 감지할 수 있는 Tomcat Thread Pool의 스레드가 해당 별도 스레드 작업에 대한 완료여부를 신경쓰지 않는 구조라면 (WAS 스레드는 별도의 스레드 풀에 작업 제출을 하고 완료 여부를 신경쓰지 않고 바로 응답을 수행 후 자원 반납)
+
+언제든지 WAS 애플리케이션이 종료될 때 별도 스레드 풀에 제출된 작업이 완료되지 않고 종료될 수 있다.
+
+흔히 자바, 스프링 애플리케이션을 개발하면서 많이들 하는 실수가 다음과 같은 실수라고 생각한다.
+
+- 아래와 같이 CompletableFuture을 사용하여 runAsync(Runnable)에 제출된 작업이 오래 걸리는 상황인 경우
+- 해당 작업의 완료 여부를 톰캣 스레드가 신경쓰지 않는 경우
+
+이런 상황에서는 언제든지 애플리케이션은 Graceful Shutdown을 완벽하게 보장하지 못한다.
+
+<img width="754" alt="스크린샷 2024-02-04 오후 6 39 37" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/9e845121-5828-4ae9-8ca7-29c0980ca86b">
+
+
+다음 시나리오를 예제 코드를 통해 간단하게 살펴보자.
+
+- WAS 스레드가 50초가 소요되는(50초를 슬립하는) 작업이 스레드 풀에 제출한다.
+- 제출 즉시 애플리케이션은 종료 시그널을 전달 받는다.
+- WAS 스레드는 제출한 작업을 기다리지 않는다.
+
+
+<img width="685" alt="스크린샷 2024-02-04 오후 6 45 12" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/cd26a94b-9a8c-46f5-9857-40a8b4e23efc">
+
+
+다음 사진의 결과처럼, 비동기 작업이 제출되었으나 완료되지 않고 애플리케이션이 즉시 종료되는 상황을 볼 수 있다.
+
+<img width="1566" alt="스크린샷 2024-02-04 오후 6 46 08" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/a041ebb1-e0e1-449d-9cfb-ed0981caae57">
+
+
+그러면, 어떻게 별도 스레드풀에 제출된 작업 또한 우아하게 종료되도록 할 수 있을까?
+
+우리는 위에서 Tomcat WAS 스레드풀에 대한 상태를 감지할 수 있도록 변경했다. 제일 쉬운 방법은 Tomcat WAS 스레드 풀의 스레드가 비동기로 제출된 작업이 완료되도록 기다리면 된다.
+
+하지만, 이 방법이 근본적인 해결 방법은 되지 않는다. 때로는, 시스템의 반응성을 위해 클라이언트에게 빠르게 결과를 응답해주어야 할 때도 있기 때문이다.
+
+나는 다음과 같이 별도의 스레드 풀을 스프링 빈으로 관리하고, 해당 스레드 풀을 빈 소멸 (DisposableBean)단계에서 작업이 모두 완료될 때까지 기다리도록 대기했다.
+
+<img width="1009" alt="스크린샷 2024-02-04 오후 6 52 48" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/f2655e3a-bf68-4a81-bfc9-801324fac206">
+
+방법은 여러가지가 있을 수도 있겠다. 하지만, 나는 스프링 애플리케이션을 사용하고 있었고 빈 소멸 단계에서 적절히 자원을 회수하는 것이 조금 더 직관적이라고 생각해서 이렇게 작업하였다.
+
+위에서 봤던 예제 코드블럭을 다음과 같이 수정하고 테스트해보자.
+
+<img width="656" alt="스크린샷 2024-02-04 오후 6 56 58" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/5f7f6346-775c-4c6a-9402-46fdcf2865ed">
+
+<img width="1526" alt="스크린샷 2024-02-04 오후 6 58 45" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/7939839c-478e-4845-bbf0-8fafad0e00d6">
+
+
+## 참고문서
+
+- [Linux Termination Signals](https://man7.org/linux/man-pages/man7/signal.7.html)
+-
