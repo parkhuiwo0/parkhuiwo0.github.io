@@ -176,9 +176,9 @@ spring:
 
 ```yaml
 spring:
-	kafka:
-		listener:
-			immediate-stop: true
+    kafka:
+        listener:
+            immediate-stop: true
 ```
 
 이 옵션이 정확히 어떻게 동작하는지 보고 싶다면, `org.apache.kafka.common.KafkaException` 를 참고하면 된다.
