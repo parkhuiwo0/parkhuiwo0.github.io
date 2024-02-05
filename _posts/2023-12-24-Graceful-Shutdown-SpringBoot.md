@@ -163,6 +163,15 @@ spring:
 
 <img width="1526" alt="스크린샷 2024-02-04 오후 6 58 45" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/7939839c-478e-4845-bbf0-8fafad0e00d6">
 
+또 다른 방법은 스프링에서 제공하는 [`ThreadPoolTaskExecutor`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/concurrent/ThreadPoolTaskExecutor.html)를 활용하는 방법도 있다.
+
+다음 JavaDoc에서 확인할 수 있듯이 `setWaitForTasksToCompleteOnShutdown` 함수를 이용하여 셧다운 시 작업 완료 대기를 설정하면 된다.
+
+다만, 조금 더 스레드 풀의 상세한 설정이 필요하고 직접 `Executor` 관련 인터페이스를 제어하고자 한다면 위에서 작업한 코드처럼 별도의 제어가 필요하다.
+
+<img width="1836" alt="image" src="https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/23636eb0-605c-49ca-9ff2-d44ebd17ace0">
+
+
 ### 3. 카프카 컨슈머의 처리중인 Offset 관리
 
 만약, 카프카 컨슈머의 ackMode가 `BATCH` 로 설정되어있고, 한번에 많은 양의 오프셋을 `poll()` 했을 때 처리하다가 중간에 종료 시그널을 받게 되면 어떻게 될까?
