@@ -1,19 +1,13 @@
 ---
 layout: content
-title: 나에 대해
+title: About me
 permalink: /about/
 ---
 
-> 중요하지 않은 무언가를 위해 중요한 무언가를 건다는 것은 말도 안 되는 짓이다.
-
-개발자 박희우의 기술 위키입니다.
-
-주로 Java와 Spring Framework를 이용하여 개발하며 오픈소스 생태계에 관심이 많습니다.
-
-많은 관심과 응원 부탁드려요.
+# 경력
+### Kurly 커머스플랫폼 상품도메인 Server Developer (2021.11 ~)
+### Herren Server Developer [병역특례] (2019.08 ~ 2021.11)
 
 ----
 
 - [Linkedin](https://www.linkedin.com/in/parkhuiwo0/)
-- [Instagram](https://www.instagram.com/parkhuiwo0/)
-
