@@ -18,9 +18,10 @@ comments: true
 - Mutex lock/Unlock : 17ns
 - SSD Random Access I/O (Read) : 17μs
 - Send 2,000 bytes over commodity network : 44μs
+- Sequentially Read 1MB(1,000,000 bytes) from Memory : 3μs
 - Sequentially Read 1MB(1,000,000 bytes) from SSD : 49μs
-- Main Memory Reference : 100ns
 - Sequentially Read 1MB(1,000,000 bytes) from Disk : 825μs
+- Main Memory Reference : 100ns
 - Disk Seek : 2ms
 - Packet roundtrip CA to Netherlands : 150ms
 
