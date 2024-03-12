@@ -24,7 +24,6 @@ comments: true
 - Disk Seek : 2ms
 - Packet roundtrip CA to Netherlands : 150ms
 
-읽어주셔서 감사합니다.
 
 ## 참고문서
 - https://colin-scott.github.io/personal_website/research/interactive_latency.html
