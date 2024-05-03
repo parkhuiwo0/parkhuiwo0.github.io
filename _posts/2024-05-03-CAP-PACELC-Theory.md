@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CAP(Consistency, Availability, Partition Tolerence)"
+title: "Theory of Distributed Data Store"
 description: "분산 컴퓨팅 데이터베이스 이론 CAP, PACELC"
 date: 2024-05-03
 tags: DB
@@ -15,7 +15,7 @@ CAP이론에서 이야기 하고자 하는 내용이 무엇인지 알아보고, 
 
 ### Consistency (일관성)
 모든 컴퓨팅 자원은 가장 최근에 쓴 데이터를 항상 읽을 수 있어야 함을 의미합니다.
-만약, 노드가 총 3대(A,B,C)가 있는 환경에서 A 노드에 데이터가 업데이트 되는 즉시 B와 C노드에서도 업데이트 된 내용이 확인될 수 있음을 의미합니다.
+만약, 노드가 총 3대(A,B,C)가 있는 환경에서 A 노드에 데이터가 업데이트 되는 즉시 B와 C노드에서도 업데이트 된 내용이 확인될 수 있음을 의미합니다. 최종적 일관성(Eventual Consistency)과 혼동될 수 있지만, 최종적 일관성과는 다른 동일 시점의 일관성을 의미합니다.
 
 ### Availability (가용성)
 모든 읽기/쓰기 작업은 가장 최근에 작성된 내용을 반환하지 않더라도 오류 응답을 하지 않습니다.
@@ -31,6 +31,19 @@ CAP이론은 이 3가지의 특성 중 두 가지를 선택하면 한 개는 포
 다음 사진과 같이 총 세 가지로 분류할 수 있습니다.
 
 ![cap](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/473c729e-f0c5-4b60-b6c6-7476e77e87fc)
+
+각 케이스에 대해 그림으로 하나씩 살펴보겠습니다.
+
+이해하기 쉽게, 분산 시스템은 Single Leader - Multi Follower 방식으로 설명하겠습니다.
+
+### C와 P를 만족하는 시스템
+
+Consistency와 Partition Tolerance를 만족하는 시스템을 그림과 표현하면 다음과 같습니다.
+![CP_Example](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/3ba50d9f-a805-4f5e-a02a-8949b6608e0d)
+
+현재 각 컴퓨팅 자원들은 위쪽 partitioned(A)와 partitioned(B)로 분할된 상황입니다.
+
+만약, 위쪽 파티션에 쓰기 요청을 한다면 위쪽 파티션은 마스터 노드와 정상적으로 통신이 가능한 상황이므로 consistency를 보장하고 있으며 아래쪽 파티션은 쿼리에 대한 응답이 불가능합니다.
 
 
 ## CAP 이론 해석의 주의사항
