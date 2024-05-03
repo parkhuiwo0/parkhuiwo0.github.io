@@ -24,3 +24,43 @@ CAP이론에서 이야기 하고자 하는 내용이 무엇인지 알아보고, 
 ### Partition tolerance (분할 내성)
 노드들 간의 Network I/O의 문제가 생기는 경우 (네트워크 장애, Latency, Packet Loss 등)에도 불구하고, 시스템은 정상적으로 동작하는 것을 의미합니다.
 
+CAP이론은 이 3가지의 특성 중 두 가지를 선택하면 한 개는 포기해야 함을 의미하고 있습니다.
+
+다만, 현실적으로 분산 시스템에서 각 노드간 네트워크 통신이 단절되는 상황은 절대적으로 막을 수 없기 때문에 CAP 이론은 `분할 내성(Partition Tolerance)`를 전제하고 `일관성(Consistency)`과 `가용성(Availability)` 둘 중 하나를 선택해야 하는 방향으로 해석됩니다.
+
+다음 사진과 같이 총 세 가지로 분류할 수 있습니다.
+
+![cap](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/473c729e-f0c5-4b60-b6c6-7476e77e87fc)
+
+
+## CAP 이론 해석의 주의사항
+
+위에서 `분할 내성(Partition Tolerance)`를 전제하에, `일관성(Consistency)`을 선택한 CP특징 또는 `가용성(Availability)`를 선택하는 AP특징 두 가지로 구분이 되지만 사실 이는 현실적 세계에서 큰 의미가 없습니다.
+
+### 1. 완벽한 일관성(Consistency) 보장은 불가능하다.
+완벽한 일관성을 위해 각 노드간 데이터 쓰기 작업은 모든 노드에 동기화되어야 합니다.
+
+다음 그림과 같이 각 노드간 네트워크가 단절된 상황을 예시로 들어보겠습니다.
+
+![network_fault](https://github.com/parkhuiwo0/parkhuiwo0.github.io/assets/48363085/3132d024-00f1-4d6a-b336-e4e12a752e24)
+
+Node_A로부터 연결되는 구간 Node_C의 통신 구간에 문제가 생겨 더이상 통신이 불가능한 상황에서 일관성을 지키고자 한다면,
+
+더이상 모든 Write I/O 작업을 수행할 수 없게 됩니다. 이론을 정의하는 관점에서는 의미가 있을 수 있지만, 현실적으로 
+
+## Databased System Design
+
+CAP이론을 정립한 Eric Brewer에 따르면(IEEE 내용 발췌), 다음과 같이 전통적인 Transaction 4대 원칙 ACID를 보장하는 RDB의 경우에는 `Consistency(일관성)`에 조금 더 초점을 맞추었고, BASE 철학(Eventual consistency 등)을 기반으로 설계된 Not-Only SQL등의 시스템은 `Availability(가용성)`에 초점을 맞추었다고 합니다.
+
+> Database systems designed with traditional ACID guarantees in mind such as RDBMS choose consistency over availability, whereas systems designed around the BASE philosophy, common in the NoSQL movement for example, choose availability over consistency.
+
+tktlf
+
+
+
+
+
+
+
+
+
