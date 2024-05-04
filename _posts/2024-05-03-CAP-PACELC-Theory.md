@@ -94,13 +94,11 @@ Node_A로부터 연결되는 구간 Node_C의 통신 구간에 문제가 생겨 
 
 더이상 모든 Write I/O 작업을 수행할 수 없게 됩니다. 이론을 정의하는 관점에서는 의미가 있을 수 있지만, 현실적으로 
 
-## Databased System Design
+## Database System Design
 
 CAP이론을 정립한 Eric Brewer에 따르면(IEEE 내용 발췌), 다음과 같이 전통적인 Transaction 4대 원칙 ACID를 보장하는 RDB의 경우에는 `Consistency(일관성)`에 조금 더 초점을 맞추었고, BASE 철학(Eventual consistency 등)을 기반으로 설계된 Not-Only SQL등의 시스템은 `Availability(가용성)`에 초점을 맞추었다고 합니다.
 
 > Database systems designed with traditional ACID guarantees in mind such as RDBMS choose consistency over availability, whereas systems designed around the BASE philosophy, common in the NoSQL movement for example, choose availability over consistency.
-
-tktlf
 
 
 
