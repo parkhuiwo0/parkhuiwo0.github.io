@@ -100,6 +100,10 @@ CAP이론을 정립한 Eric Brewer에 따르면(IEEE 내용 발췌), 다음과 �
 
 > Database systems designed with traditional ACID guarantees in mind such as RDBMS choose consistency over availability, whereas systems designed around the BASE philosophy, common in the NoSQL movement for example, choose availability over consistency.
 
+## 참고 자료
+- [CAP Twelve Years Later: How the "Rules" Have Changed](https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/)
+- [Brewer’s CAP Theorem](https://www.julianbrowne.com/article/brewers-cap-theorem/)
+
 
 
 
