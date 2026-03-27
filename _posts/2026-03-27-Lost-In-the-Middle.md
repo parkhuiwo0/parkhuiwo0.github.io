@@ -16,9 +16,10 @@ Stanford University와 University of California, Berkeley의 연구팀이 현대
 이는 단순히 입력에 대한 Context Size를 늘리는 것에 대한 기술적 내용이 아니라,
 Context 내에 정보에 따라 LLM 모델의 성능이 어떻게 달라지는지, 그리고 앞으로 우리가 설계하고 개발할 AI Agentic 시스템에서 컨텍스트를 어떻게 설계해야하는지에 대한 어느정도 가이드라인을 제시해줄 것으로 기대한다.
 
-이 논문의 귀무가설, H-Zero(Null hypothesis)는 "LLM 모델이 정보를 잘 활용한다면, 정보의 위치는 상관이 없어야 한다."로 설정되어있다.
+### Null Hypothesis
+이 논문의 귀무가설(H-Zero)는 "LLM 모델이 정보를 잘 활용한다면, 정보의 위치는 상관이 없어야 한다."로 설정되어있다.
 
-실험에 사용되는 두 가지 통제가능한 독립변수는 다음과 같다.
+지금부터 언급할 모든 실험에 사용되는 두 가지 통제가능한 독립변수는 다음과 같다.
 - 컨텍스트의 크기 (Context Size)
 - 정보의 위치 (Position)
 
