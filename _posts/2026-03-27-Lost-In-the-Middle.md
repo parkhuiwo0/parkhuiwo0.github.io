@@ -29,4 +29,6 @@ Stanford University와 University of California, Berkeley의 연구팀이 현대
 - OpenAI의 GPT 3.5 Turbo
 - Claude 1.3
 
+## 다중 문서 질의응답 실험, Multi-Document Question Answering
+
 # 참고 문헌
