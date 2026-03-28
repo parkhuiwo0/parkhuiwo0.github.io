@@ -202,8 +202,10 @@ Key: "9f4a92b9-5f69-4725-ba1e-403f08dea695"
 한가지 흥미로운 사실은, LongChat 모델은 값을 말하지 않고 코드를 생성했다는 점인데요, 이는 모델이 **긴 데이터를 처리하는 상황을 마주했을 때 학습 데이터 속의 특정 패턴(데이터를 처리할 때 코드를 작성하는 예시)에 편향되어 반응**했을 가능성도 존재합니다.
 
 
+
 ## 왜 이런 현상이 발생할까요?
-연구팀은 모델 아키텍처 (Decoder-Only, Encoder-Decoder), 쿼리 인식 문맥화 (Query-Aware Contextualization), Instruction 파인튜닝(fine-tuning)의 역할을 조사했다고 합니다.
+연구팀은 모델 아키텍처 (Decoder-Only, Encoder-Decoder), 쿼리 인식 문맥화 (Query-Aware Contextualization), Instruction 파인튜닝(fine-tuning)와의 연관성을 확인하기 위해 관련된 실험을 추가적으로 진행했다고 합니다.
+
 
 ### 모델 아키텍처의 영향 (Effect of Model Architecture)
 앞서 실험에 사용된 모델들은 모두 Decoder-Only 모델입니다. Encoder-Decoder 모델과 비교해서 실험을 추가적으로 진행해봤다고 하는데요,
@@ -270,7 +272,26 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 
 '모델이 커질 수록 중간 정보를 놓치는(실험 결과의 U자형 그래프) 경향이 뚜렷하게 나타난다.'
 
+## 컨텍스트가 길수록(많을수록) 항상 좋을까요? (Is More Context Is Always Better?)
+위의 모든 실험과정에서 살펴볼 수 있듯이, 긴 컨텍스트를 사용하는 것은 트레이드 오프(Trade-off) 관계임을 보여줍니다.
+더 많은 컨텍스트(정보)를 제공할 경우 정답이 포함될 확률은 높아지지만, 모델이 추론해야 할 양이 늘어나면서 오히려 정확도가 떨어질 수 있기 때문이에요.
 
+만약, 16K 토큰을 지원하는 모델을 사용한다고 해서, 16K를 모두 다 채워서 사용하는 것이 과연 더 나은 결과가 나올까요?
+
+연구팀은 `NaturalQuestions-Open` 데이터를 활용해 문서 수를 늘려가며 추가적인 실험을 진행했다고 합니다.
+
+<img width="360" height="301" alt="image" src="https://github.com/user-attachments/assets/8179e210-a036-4612-8aaf-88345dbb6490" />
+
+위 사진과 같이 문서수를 20개 이상으로 늘려도 GPT-3.5-Turbo는 약 1.5%, Claude-1.3은 약 1%의 성능 향상만 보입니다.
+반면에 컨텍스트의 양으로 인해 추론에 소요되는 **지연시간(Latency)와 비용(Cost)는 기하급수적으로 증가**합니다.
+
+무작정 많이 
+
+### 성능의 포화(Saturation) 현상
+검색 엔진은 문서를 많이 가져올수록 그 안에 정답이 있을 확률이 올라갑니다. 반면에 LLM은 너무 많은 방대한 데이터에서 정답을 찾아내는 데에 사람으로 비유하자면 에너지가 많이 듭니다.
+
+### Re-Ranking의 필수성
+이 논문의 가장 큰 공헌은 리랭킹의 중요성을 증명했다는 점이라고 생각합니다.
 
 
 # temp
