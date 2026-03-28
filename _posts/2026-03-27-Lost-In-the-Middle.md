@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lost In The Middle - How Language Models Use Long Contexts"
+title: "Lost In The Middle - How Language Models Use Long Contexts 논문 리뷰와 나의 생각"
 description: "LLM 모델의 입력 Context 활용도에 대한 연구 논문 읽기"
 date: 2026-03-27
 tags: AI
