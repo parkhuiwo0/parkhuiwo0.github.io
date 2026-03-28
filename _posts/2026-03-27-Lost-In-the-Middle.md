@@ -203,17 +203,17 @@ Key: "9f4a92b9-5f69-4725-ba1e-403f08dea695"
 ## 왜 이런 현상이 발생하는가?
 연구팀은 모델 아키텍처 (Decoder-Only, Encoder-Decoder), 쿼리 인식 문맥화 (Query-Aware Contextualization), Instruction 파인튜닝(fine-tuning)의 역할을 조사했다고 합니다.
 
+### 모델 아키텍처의 영향 (Effect of Model Architecture)
+앞서 실험에 사용된 모델들은 모두 Decoder-Only 모델입니다. Encoder-Decoder 모델과 비교해서 실험을 추가적으로 진행해봤다고 하는데요,
+
+저는 개인적으로 처음 들어봤지만 Flan-T5-XXL, Flan-UL2 모델로 추가 실험을 해봤다고 합니다.
+
 Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과 같아요.
 - Decoder-Only
     - 데이터를 왼쪽에서 오른쪽으로만 읽습니다.(Casual Attention), 즉 n번째 문서를 읽을 때, n+1 문서에 대해서 알 수 없습니다.
     - GPT, Llama와 같은 모델
 - Encoder-Decoder
     - 입력 전체를 양방향으로 한꺼번에 읽습니다. 전체적인 맥락 속에서 정보의 중요도를 판단하는 능력이 더 뛰어납니다.
-
-### 모델 아키텍처의 영향 (Effect of Model Architecture)
-앞서 실험에 사용된 모델들은 모두 Decoder-Only 모델입니다. Encoder-Decoder 모델과 비교해서 실험을 추가적으로 진행해봤다고 하는데요,
-
-저는 개인적으로 처음 들어봤지만 Flan-T5-XXL, Flan-UL2 모델로 추가 실험을 해봤다고 합니다.
 
 ### 실험 결과
 <img width="770" height="240" alt="image" src="https://github.com/user-attachments/assets/c50a399e-a837-48bb-ac6a-0a5065a4b0f7" />
