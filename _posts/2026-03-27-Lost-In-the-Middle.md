@@ -122,7 +122,9 @@ LLM 모델이 찾아야하는 정답은 **문서[2]**에 있습니다. 마찬가
 
 위와 같이 어떻게 보면 단순해보일 수 있지만, [NIAH(Niddle in a Haystack)](https://arxiv.org/abs/2406.07230) 연구와 비슷하게 위에서 언급한 두 가지 변수를 Finer-grained 조정을 통해 실험하며 굉장히 디테일한 패턴을 분석하였습니다.
 
-또한, 
+### 실험 결과
+<img width="747" height="247" alt="실험결과" src="https://github.com/user-attachments/assets/07670d8a-ea33-450b-a2ce-1422b42fc021" />
+
 
 # 참고 문헌
 - https://arxiv.org/abs/2406.07230
