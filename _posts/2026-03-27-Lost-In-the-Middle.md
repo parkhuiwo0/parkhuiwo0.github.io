@@ -200,7 +200,7 @@ Key: "9f4a92b9-5f69-4725-ba1e-403f08dea695"
 한가지 흥미로운 사실은, LongChat 모델은 값을 말하지 않고 코드를 생성했다는 점인데요, 이는 모델이 **긴 데이터를 처리하는 상황을 마주했을 때 학습 데이터 속의 특정 패턴(데이터를 처리할 때 코드를 작성하는 예시)에 편향되어 반응**했을 가능성도 존재합니다.
 
 
-## 왜 이런 현상이 발생하는가?
+## 왜 이런 현상이 발생할까요?
 연구팀은 모델 아키텍처 (Decoder-Only, Encoder-Decoder), 쿼리 인식 문맥화 (Query-Aware Contextualization), Instruction 파인튜닝(fine-tuning)의 역할을 조사했다고 합니다.
 
 ### 모델 아키텍처의 영향 (Effect of Model Architecture)
@@ -215,14 +215,19 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 - Encoder-Decoder
     - 입력 전체를 양방향으로 한꺼번에 읽습니다. 전체적인 맥락 속에서 정보의 중요도를 판단하는 능력이 더 뛰어납니다.
 
-### 실험 결과
+#### 실험 결과
 <img width="770" height="240" alt="image" src="https://github.com/user-attachments/assets/c50a399e-a837-48bb-ac6a-0a5065a4b0f7" />
 
 결과를 요악하자면 다음과 같습니다.
 - Flan-UL2는 학습 시 사용된 Context Window(2,048 Tokens) 내에서 평가했을 때, 정보의 위치에 변화에 따른 성능 차이가 크게 없었습니다. (최고-최악의 성능 차이가 약 1.9%)
 -  하지만, Context가 길어지는 경우 결국 동일한 U자형 그래프가 그려지는 모습을 확인할 수 있습니다.
 
+### 쿼리 인식 문맥화(Query-Aware Contextualization)의 영향
+위의 실험들에서 입력창을 예시로 보여드린 것 기억이 나시낭? 모두 사용자의 질문을 문서/정보의 뒤쪽에 배치했습니다.
+그 결과, GPT와 같은 Decoder-Only 모델은 문서를 읽는 동안 질문이 무엇인지 알 수 없었습니다. 디코더 모델은 앞서 설명드린 것과 같이 `Casual Attention`으로 다음에 나올 내용에 대해서 알지 못합니다.
+반면, Encoder-Decoder 모델은 양방향으로 읽는다는 특성으로 인해 질문을 미리 인지한 상태에서 문서를 훑을 수 있어 더 나은 성능이 나왔습니다.
 
+### 실험 결과
 
 # temp
 - 우리가 16K 모델을 사용하더라도, 검색된 문서가 4K 이내라면 기본 모델을 사용하는 것과 품질 차이가 거의 없다
