@@ -46,8 +46,7 @@ comments: true
 많은 기업들에서 AX(AI Transformation)를 시도 중이고, 빠르게 발전하며 업종을 가리지 않고 산업혁명이라고 봐도 무방할 만큼 침투하는 AI 시대에서 AI 공부를 하던 중 Stanford University와 University of California, Berkeley의 연구자들이 현대 LLM 모델에서 입력 컨텍스트 내의 정보의 **길이와 위치**에 따른 성능의 변화를 연구한 논문을 읽게 되었습니다. <br>
 
 이 논문을 읽으면서 나온 내용들을 정리/요약하고, 추가적인 저의 생각을 남겨놓기 위해 포스팅을 작성합니다.
-
-**본 포스팅은 논문의 글을 요약하여 정리하며 중간중간 글 작성자인 저의 개인적인 의견도 함께 덧붙여있음을 사전에 알려드립니다. 논문의 원본은 하단 참고 자료를 참고부탁드립니다.**
+**본 포스팅은 논문의 글을 요약하여 정리하며 중간중간 글 작성자인 저의 개인적인 의견도 함께 덧붙여있음을 사전에 알려드립니다. 논문의 원본은 하단 참고 자료에서 확인하실 수 있습니다.**
 
 이 논문의 연구가 2023년도에 이루어져 빠르게 발전된 현재와는 맞지 않을 수도 있다고 생각할 수 있겠지만, 지속적으로 더 큰 Context Window를 가진 언어 모델이 등장하더라도, **트랜스포머(Transformer) 기반의 아키텍처**가 다운스트림 태스크 수행 시 입력 컨텍스트를 어떻게 활용하는지에 대해서는 여전히 불분명하며 구조적인 특성으로 인한 한계가 존재한다고 생각합니다. <br>
 
@@ -165,7 +164,7 @@ LLM 모델이 찾아야하는 정답은 **문서[2]**에 있습니다. 마찬가
 각 모델에 대해서 실험 후 Accuracy를 측정한 결과 사진은 다음과 같습니다.
 
 <img width="747" height="247" alt="실험결과" src="https://github.com/user-attachments/assets/07670d8a-ea33-450b-a2ce-1422b42fc021"/>
-<div align="center" style="color: gray; font-size: 0.85em;">(출처: Lost In the Middle 논문 내)</div>
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 요약하자면 다음과 같습니다.
 
@@ -233,6 +232,7 @@ Key: "9f4a92b9-5f69-4725-ba1e-403f08dea695"
 
 ### 실험 결과
 <img width="723" height="224" alt="image" src="https://github.com/user-attachments/assets/520cec8f-4257-48a9-b4d3-8f9b1ee9cfc6" />
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 결과를 요약하자면 다음과 같습니다.
 - Claude 1.3과 Claude 1.3(100K)는 테스트된 모든 컨텍스트 설정에서 거의 완벽한 성능을 보였습니다.
@@ -262,6 +262,7 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 
 #### 실험 결과
 <img width="770" height="240" alt="image" src="https://github.com/user-attachments/assets/c50a399e-a837-48bb-ac6a-0a5065a4b0f7" />
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 결과를 요악하자면 다음과 같습니다.
 - Flan-UL2는 학습 시 사용된 Context Window(2,048 Tokens) 내에서 평가했을 때, 정보의 위치에 변화에 따른 성능 차이가 크게 없었습니다. (최고-최악의 성능 차이가 약 1.9%)
@@ -281,6 +282,7 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 <center>
 <img width="358" height="288" alt="image" src="https://github.com/user-attachments/assets/25d3b699-7d19-44a3-8169-bc2c29dd5a29" />
 </center>
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 역시나 U자형 그래프가 그려지며 모델이 질문을 미리 안다고 해서, 중간에 위치한 방대한 텍스트의 '의미적 손실'을 완전히 막기는 어려워 보이긴 합니다.
 
@@ -293,6 +295,7 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 <center>
 <img width="359" height="289" alt="image" src="https://github.com/user-attachments/assets/e2bc75c5-1dc7-46ff-9c29-87f6530ac93e" />
 </center>
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 실험을 요약하자면 다음과 같습니다.
 
@@ -327,6 +330,7 @@ Decoder Only모델과 Encoder-Decoder 모델을 대략 설명하자면 다음과
 <center>
 <img width="360" height="301" alt="image" src="https://github.com/user-attachments/assets/8179e210-a036-4612-8aaf-88345dbb6490" />
 </center>
+<figcaption style="text-align: center; color: #888; font-size: 0.8em;">(출처: Lost In the Middle 논문 내)</figcaption>
 
 위 사진과 같이 문서 수를 20개 이상으로 늘려도 GPT-3.5-Turbo는 약 1.5%, Claude-1.3은 약 1%의 성능 향상만 보입니다.
 반면에 컨텍스트의 양으로 인해 추론에 소요되는 **지연시간(Latency)와 비용(Cost)는 기하급수적으로 증가**합니다.
